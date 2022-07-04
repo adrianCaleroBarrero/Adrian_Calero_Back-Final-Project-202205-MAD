@@ -19,14 +19,14 @@ export interface iProfesional {
 }
 
 const profesionalSchema = new mongoose.Schema({
-    avatar: String,
-    name: { type: String, required: true },
-    profesion: { type: String, required: true },
+    avatar: mongoose.SchemaTypes.String,
+    name: { type: mongoose.SchemaTypes.String, required: true },
+    profesion: { type: mongoose.SchemaTypes.String, required: true },
     info: {
-        description: String,
-        price: Number,
-        img: String,
-        video: String,
+        description: mongoose.SchemaTypes.String,
+        price: mongoose.SchemaTypes.Number,
+        img: mongoose.SchemaTypes.String,
+        video: mongoose.SchemaTypes.String,
     },
 });
 

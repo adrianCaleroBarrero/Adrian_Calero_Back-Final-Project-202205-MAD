@@ -1,17 +1,16 @@
-import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 import { mongooseConnect } from '../db/mongoose.js';
 (async () => {
     await mongooseConnect();
 })();
 const userSchema = new mongoose.Schema({
-    avatar: String,
-    userName: { type: String, required: true },
-    email: { type: String, required: true },
-    passwd: { type: String, required: true },
+    avatar: mongoose.SchemaTypes.String,
+    userName: { type: mongoose.SchemaTypes.String, required: true },
+    email: { type: mongoose.SchemaTypes.String, required: true },
+    passwd: { type: mongoose.SchemaTypes.String, required: true },
     favorites: [
         {
-            type: ObjectId,
+            type: mongoose.SchemaTypes.ObjectId,
             ref: 'Profesional',
         },
     ],
