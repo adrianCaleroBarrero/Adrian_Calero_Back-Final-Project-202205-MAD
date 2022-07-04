@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { UserController } from '../controllers/user.controller';
-import { User } from '../models/user.model';
+import { UserController } from '../controllers/user.controller.js';
+import { User } from '../models/user.model.js';
 
 export const userController = new UserController(User);
 export const userRoutes = Router();
