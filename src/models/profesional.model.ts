@@ -1,4 +1,3 @@
-import { ReturnDocument } from 'mongodb';
 import mongoose from 'mongoose';
 import { mongooseConnect } from '../db/mongoose.js';
 
@@ -32,7 +31,7 @@ const profesionalSchema = new mongoose.Schema({
 });
 
 profesionalSchema.set('toJSON', {
-    transform: (document, ReturnedObject) => delete ReturnedObject.__v,
+    transform: (document, returnedObject) => delete returnedObject.__v,
 });
 
 export const Profesional = mongoose.model('Profesional', profesionalSchema);
