@@ -60,6 +60,11 @@ export class UserController {
         resp.status(202);
         resp.send({ token, id: findUser.id });
     };
+    patchController = async (req, resp) => {
+        const modifyItem = await this.model.findByIdAndUpdate(req.params.id, req.body);
+        resp.setHeader('Content-type', 'application/json');
+        resp.send(JSON.stringify(modifyItem));
+    };
     deleteController = async (req, resp) => {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             return resp
