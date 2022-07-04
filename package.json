@@ -7,8 +7,9 @@
     "scripts": {
         "start": "run-p start:ts start:build",
         "start:ts": "tsc --watch",
-        "start:build": "cross-env PORT=3400 nodemon ./dist/index.js",
-        "test": "cross-env jest --watchAll --coverage --passWithNoTests"
+        "start:build": "cross-env PORT=3550 nodemon ./dist/index.js",
+        "test": "cross-env jest --watchAll --coverage --passWithNoTests",
+        "prepare": "husky install"
     },
     "author": "",
     "license": "ISC",
@@ -23,6 +24,7 @@
         "cross-env": "^7.0.3",
         "dotenv": "^16.0.1",
         "express": "^4.18.1",
+        "husky": "^8.0.1",
         "jsonwebtoken": "^8.5.1",
         "mongodb": "^4.7.0",
         "mongoose": "^6.4.0",
