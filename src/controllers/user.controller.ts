@@ -40,9 +40,6 @@ export class UserController<iUser> {
         try {
             req.body.passwd = await encrypt(req.body.passwd);
             newItem = await this.model.create(req.body);
-            if (!newItem) {
-                throw new Error('Need data');
-            }
         } catch (error) {
             next(error);
             return;

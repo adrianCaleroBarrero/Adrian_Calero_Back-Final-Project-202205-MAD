@@ -6,8 +6,8 @@ import { mongooseConnect, Relation } from '../db/mongoose.js';
 })();
 
 export interface iReview {
-    worker: Relation;
-    client: Relation;
+    worker: Relation | null;
+    client: Relation | null;
     date: string;
     reviews: {
         img: string[];
@@ -18,8 +18,8 @@ export interface iReview {
 }
 
 const reviewSchema = new mongoose.Schema({
-    worker: { type: mongoose.SchemaTypes.ObjectId, ref: 'Profesional' } || null,
-    client: { type: mongoose.SchemaTypes.ObjectId, ref: 'User' } || null,
+    worker: { type: mongoose.SchemaTypes.ObjectId, ref: 'Profesional' },
+    client: { type: mongoose.SchemaTypes.ObjectId, ref: 'User' },
     date: mongoose.SchemaTypes.String,
     reviews: {
         img: { type: [mongoose.SchemaTypes.String] },
