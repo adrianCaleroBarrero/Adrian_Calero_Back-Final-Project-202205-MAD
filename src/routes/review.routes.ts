@@ -1,13 +1,11 @@
 import { Router } from 'express';
-import { UserController } from '../controllers/user.controller.js';
-import { User } from '../models/user.model.js';
+import { ReviewController } from '../controllers/review.controller.js';
+import { Review } from '../models/review.model.js';
 
-export const reviewController = new UserController(User);
-export const userRoutes = Router();
+export const reviewController = new ReviewController(Review);
+export const reviewRoutes = Router();
 
-userRoutes.get('/', userController.getAllController);
-userRoutes.get('/:id', userController.getController);
-userRoutes.post('/register', userController.postController);
-userRoutes.post('/login', userController.loginController);
-userRoutes.patch('/:id', userController.patchController);
-userRoutes.delete('/:id', userController.deleteController);
+reviewRoutes.get('/', reviewController.getAllController);
+reviewRoutes.post('/', reviewController.postController);
+reviewRoutes.patch('/:id', reviewController.patchController);
+reviewRoutes.delete('/:id', reviewController.deleteController);
