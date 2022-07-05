@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { iProfesional, Profesional } from '../models/profesional.model';
 import { ProfesionalController } from './profesional.controller';
 
@@ -11,7 +11,6 @@ describe('Given the user controller', () => {
     let controller: ProfesionalController<iProfesional>;
     let req: Partial<Request>;
     let resp: Partial<Response>;
-    let next: NextFunction;
 
     beforeEach(() => {
         req = {
@@ -25,7 +24,6 @@ describe('Given the user controller', () => {
             send: jest.fn(),
             status: jest.fn(),
         };
-        next = jest.fn();
 
         controller = new ProfesionalController(Profesional) as any;
     });
@@ -60,24 +58,9 @@ describe('Given the user controller', () => {
         test('Then should send a response', async () => {
             Profesional.create = jest.fn().mockReturnValue({});
 
-            await controller.postController(
-                req as Request,
-                resp as Response,
-                next as NextFunction
-            );
+            await controller.postController(req as Request, resp as Response);
             expect(Profesional.create).toHaveBeenCalled();
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
-        });
-        test('Then should send a error', async () => {
-            Profesional.create = jest.fn().mockReturnValue(undefined);
-
-            await controller.postController(
-                req as Request,
-                resp as Response,
-                next as NextFunction
-            );
-
-            expect(next).toHaveBeenCalled();
         });
     });
 });

@@ -31,19 +31,12 @@ export class UserController<iUser> {
         }
     };
 
-    postController = async (
-        req: Request,
-        resp: Response,
-        next: NextFunction
-    ) => {
+    postController = async (req: Request, resp: Response) => {
         let newItem: HydratedDocument<any>;
-        try {
-            req.body.passwd = await encrypt(req.body.passwd);
-            newItem = await this.model.create(req.body);
-        } catch (error) {
-            next(error);
-            return;
-        }
+
+        req.body.passwd = await encrypt(req.body.passwd);
+        newItem = await this.model.create(req.body);
+
         resp.setHeader('Content-type', 'application/json');
         resp.status(201);
         resp.send(JSON.stringify(newItem));

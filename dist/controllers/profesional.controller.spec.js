@@ -7,7 +7,6 @@ describe('Given the user controller', () => {
     let controller;
     let req;
     let resp;
-    let next;
     beforeEach(() => {
         req = {
             params: {
@@ -19,7 +18,6 @@ describe('Given the user controller', () => {
             send: jest.fn(),
             status: jest.fn(),
         };
-        next = jest.fn();
         controller = new ProfesionalController(Profesional);
     });
     describe('When use getAllController', () => {
@@ -46,14 +44,9 @@ describe('Given the user controller', () => {
     describe('When use postController', () => {
         test('Then should send a response', async () => {
             Profesional.create = jest.fn().mockReturnValue({});
-            await controller.postController(req, resp, next);
+            await controller.postController(req, resp);
             expect(Profesional.create).toHaveBeenCalled();
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
-        });
-        test('Then should send a error', async () => {
-            Profesional.create = jest.fn().mockReturnValue(undefined);
-            await controller.postController(req, resp, next);
-            expect(next).toHaveBeenCalled();
         });
     });
 });

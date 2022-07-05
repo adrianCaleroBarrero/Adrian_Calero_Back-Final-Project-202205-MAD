@@ -55,14 +55,6 @@ describe('Given the routes of /user', () => {
                 .send(newUser);
             expect(response.statusCode).toBe(201);
         });
-
-        test('Then status should be 404', async () => {
-            const response = await await request(app)
-                .post('/user/register')
-                .send({ passwd: '1234' });
-
-            expect(response.statusCode).toBe(406);
-        });
     });
 
     describe('When method POST with login is used', () => {

@@ -74,24 +74,10 @@ describe('Given the user controller', () => {
         test('Then should send a response and status 201', async () => {
             User.create = jest.fn().mockReturnValue({});
 
-            await controller.postController(
-                req as Request,
-                resp as Response,
-                next as NextFunction
-            );
+            await controller.postController(req as Request, resp as Response);
             expect(User.create).toHaveBeenCalled();
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
             expect(resp.status).toHaveBeenCalledWith(201);
-        });
-        test('Then should send a error', async () => {
-            User.create = jest.fn().mockReturnValue(undefined);
-
-            await controller.postController(
-                req as Request,
-                resp as Response,
-                next as NextFunction
-            );
-            expect(next).toHaveBeenCalled();
         });
     });
 

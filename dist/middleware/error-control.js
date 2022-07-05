@@ -8,7 +8,6 @@ const errors = {
 export const errorControl = (error, req, resp, next) => {
     req;
     next;
-    console.log(error.message);
     let status = 500;
     if (error.name)
         status = errors[error.name];

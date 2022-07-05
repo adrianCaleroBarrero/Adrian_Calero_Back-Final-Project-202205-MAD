@@ -57,15 +57,10 @@ describe('Given the user controller', () => {
     describe('When use postController', () => {
         test('Then should send a response and status 201', async () => {
             User.create = jest.fn().mockReturnValue({});
-            await controller.postController(req, resp, next);
+            await controller.postController(req, resp);
             expect(User.create).toHaveBeenCalled();
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
             expect(resp.status).toHaveBeenCalledWith(201);
-        });
-        test('Then should send a error', async () => {
-            User.create = jest.fn().mockReturnValue(undefined);
-            await controller.postController(req, resp, next);
-            expect(next).toHaveBeenCalled();
         });
     });
     describe('When use loginController', () => {

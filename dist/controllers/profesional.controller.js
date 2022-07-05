@@ -21,16 +21,9 @@ export class ProfesionalController {
             resp.send(JSON.stringify({}));
         }
     };
-    postController = async (req, resp, next) => {
+    postController = async (req, resp) => {
         let newItem;
-        try {
-            newItem = await this.model.create(req.body);
-            
-        }
-        catch (error) {
-            next(error);
-            return;
-        }
+        newItem = await this.model.create(req.body);
         resp.setHeader('Content-type', 'application/json');
         resp.status(201);
         resp.send(JSON.stringify(newItem));

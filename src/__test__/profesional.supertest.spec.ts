@@ -56,11 +56,5 @@ describe('Given the routes of /user', () => {
                 .send(newProfesional);
             expect(response.statusCode).toBe(201);
         });
-
-        test('Then status should be 404', async () => {
-            const response = await request(app).post('/profesional/');
-
-            expect(response.statusCode).toBe(406);
-        });
     });
 });
