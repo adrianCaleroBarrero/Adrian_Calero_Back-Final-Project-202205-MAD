@@ -13,10 +13,6 @@ export class ProfesionalController<iProfesional> {
 
     getController = async (req: Request, resp: Response) => {
         const result = await this.model.findById(req.params.id);
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
         resp.setHeader('Content-type', 'application/json');
         if (result) {
             resp.send(JSON.stringify(result));

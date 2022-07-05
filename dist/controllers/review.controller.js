@@ -7,7 +7,10 @@ export class ReviewController {
     getAllController = async (req, resp) => {
         req;
         resp.setHeader('Content-type', 'application/json');
-        resp.send(JSON.stringify(await this.model.find().populate('Profesional').populate('User')));
+        resp.send(JSON.stringify(await this.model
+            .find({ worker: req.params.id })
+            .populate('worker')
+            .populate('client')));
     };
     postController = async (req, resp, next) => {
         let newItem;

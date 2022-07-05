@@ -1,7 +1,8 @@
+import { User } from '../models/user.model.js';
 export const userRequired = async (req, res, next) => {
     const userID = req.tokenPayload.id;
-    const findRobot = await RobotModel.findById(req.params.id);
-    if (String(findRobot?.owner) === String(userID)) {
+    const findUser = await User.findById(req.params.id);
+    if (String(findUser?.favorites) === String(userID)) {
         next();
     }
     else {
