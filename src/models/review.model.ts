@@ -18,8 +18,8 @@ export interface iReview {
 }
 
 const reviewSchema = new mongoose.Schema({
-    worker: { type: mongoose.SchemaTypes.ObjectId, ref: 'Profesional' },
-    client: { type: mongoose.SchemaTypes.ObjectId, ref: 'User' },
+    worker: { type: mongoose.SchemaTypes.ObjectId, ref: 'Profesional' } || null,
+    client: { type: mongoose.SchemaTypes.ObjectId, ref: 'User' } || null,
     date: mongoose.SchemaTypes.String,
     reviews: {
         img: { type: [mongoose.SchemaTypes.String] },
