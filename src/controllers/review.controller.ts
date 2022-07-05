@@ -7,7 +7,7 @@ import { iReview } from '../models/review.model.js';
 export class ReviewController<iReview> {
     constructor(public model: Model<iReview>) {}
 
-    getAllController = async (req: Request, resp: Response) => {
+    getAllInProfesionalController = async (req: Request, resp: Response) => {
         req;
         resp.setHeader('Content-type', 'application/json');
 

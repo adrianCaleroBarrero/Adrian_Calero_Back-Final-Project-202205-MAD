@@ -5,7 +5,7 @@ import { Review } from '../models/review.model.js';
 export const reviewController = new ReviewController(Review);
 export const reviewRoutes = Router();
 
-reviewRoutes.get('/', reviewController.getAllController);
+reviewRoutes.get('/', reviewController.getAllInProfesionalController);
 reviewRoutes.post('/', reviewController.postController);
 reviewRoutes.patch('/:id', reviewController.patchController);
 reviewRoutes.delete('/:id', reviewController.deleteController);
