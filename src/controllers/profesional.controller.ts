@@ -33,9 +33,6 @@ export class ProfesionalController<iProfesional> {
         let newItem;
         try {
             newItem = await this.model.create(req.body);
-            if (!newItem) {
-                throw new Error('Need data');
-            }
         } catch (error) {
             next(error);
             return;
