@@ -14,7 +14,7 @@ export class ReviewController<iReview> {
         resp.send(
             JSON.stringify(
                 await this.model
-                    .find({ worker: req.params.id })
+                    .find({ worker: req.params.workerId })
                     .populate('worker')
                     .populate('client')
             )

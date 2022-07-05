@@ -8,7 +8,7 @@ export class ReviewController {
         req;
         resp.setHeader('Content-type', 'application/json');
         resp.send(JSON.stringify(await this.model
-            .find({ worker: req.params.id })
+            .find({ worker: req.params.workerId })
             .populate('worker')
             .populate('client')));
     };

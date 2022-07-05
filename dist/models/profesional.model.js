@@ -15,6 +15,8 @@ const profesionalSchema = new mongoose.Schema({
     },
 });
 profesionalSchema.set('toJSON', {
-    transform: (document, returnedObject) => delete returnedObject.__v,
+    transform: (document, returnedObject) => {
+        delete returnedObject.__v;
+    },
 });
 export const Profesional = mongoose.model('Profesional', profesionalSchema);

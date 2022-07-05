@@ -7,3 +7,4 @@ export const profesionalRoutes = Router();
 
 profesionalRoutes.get('/', profesionalController.getAllController);
 profesionalRoutes.get('/:id', profesionalController.getController);
+profesionalRoutes.post('/', profesionalController.postController);
