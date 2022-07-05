@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import * as aut from '../services/authorization.js';
+import { compare, encrypt } from '../services/encrypt.js';
 export class UserController {
     model;
     constructor(model) {
@@ -8,7 +9,7 @@ export class UserController {
     getAllController = async (req, resp) => {
         req;
         resp.setHeader('Content-type', 'application/json');
-        resp.send(JSON.stringify(await this.model.find().populate('favorites')));
+        resp.send(JSON.stringify(await this.model.find().populate('favorites', { __v: 0 })));
     };
     getController = async (req, resp) => {
         const result = await this.model
@@ -26,7 +27,7 @@ export class UserController {
     postController = async (req, resp, next) => {
         let newItem;
         try {
-            req.body.passwd = await aut.encrypt(req.body.passwd);
+            req.body.passwd = await encrypt(req.body.passwd);
             newItem = await this.model.create(req.body);
             if (!newItem) {
                 throw new Error('Need data');
@@ -44,8 +45,7 @@ export class UserController {
         const findUser = await this.model.findOne({
             userName: req.body.userName,
         });
-        if (!findUser ||
-            !(await aut.compare(req.body.passwd, findUser.passwd))) {
+        if (!findUser || !(await compare(req.body.passwd, findUser.passwd))) {
             const error = new Error('Invalid user or password');
             error.name = 'UserAuthorizationError';
             next(error);

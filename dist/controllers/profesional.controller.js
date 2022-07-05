@@ -4,9 +4,11 @@ export class ProfesionalController {
         this.model = model;
     }
     getAllController = async (req, resp) => {
+        const result = await this.model.find();
+        console.log(JSON.stringify(result));
         req;
         resp.setHeader('Content-type', 'application/json');
-        resp.send(JSON.stringify(await this.model.find()));
+        resp.send(result);
     };
     getController = async (req, resp) => {
         const result = await this.model.findById(req.params.id);
@@ -18,5 +20,21 @@ export class ProfesionalController {
             resp.status(404);
             resp.send(JSON.stringify({}));
         }
+    };
+    postController = async (req, resp, next) => {
+        let newItem;
+        try {
+            newItem = await this.model.create(req.body);
+            if (!newItem) {
+                throw new Error('Need data');
+            }
+        }
+        catch (error) {
+            next(error);
+            return;
+        }
+        resp.setHeader('Content-type', 'application/json');
+        resp.status(201);
+        resp.send(JSON.stringify(newItem));
     };
 }

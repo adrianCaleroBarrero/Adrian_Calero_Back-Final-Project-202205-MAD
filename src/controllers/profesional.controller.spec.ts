@@ -1,13 +1,17 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { iProfesional, Profesional } from '../models/profesional.model';
 import { ProfesionalController } from './profesional.controller';
 
 jest.mock('../models/profesional.model');
 
 describe('Given the user controller', () => {
+    process.env.URL_MONGO_TEST = '';
+    console.log('Process env url test', process.env.URL_MONGO_TEST);
+
     let controller: ProfesionalController<iProfesional>;
     let req: Partial<Request>;
     let resp: Partial<Response>;
+    let next: NextFunction;
 
     beforeEach(() => {
         req = {
@@ -21,6 +25,7 @@ describe('Given the user controller', () => {
             send: jest.fn(),
             status: jest.fn(),
         };
+        next = jest.fn();
 
         controller = new ProfesionalController(Profesional) as any;
     });
@@ -30,7 +35,7 @@ describe('Given the user controller', () => {
 
             await controller.getAllController(req as Request, resp as Response);
             expect(Profesional.find).toHaveBeenCalled();
-            expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
+            expect(resp.send).toHaveBeenCalledWith({});
         });
     });
 
@@ -48,6 +53,31 @@ describe('Given the user controller', () => {
             await controller.getController(req as Request, resp as Response);
 
             expect(resp.status).toHaveBeenCalledWith(404);
+        });
+    });
+
+    describe('When use postController', () => {
+        test('Then should send a response', async () => {
+            Profesional.create = jest.fn().mockReturnValue({});
+
+            await controller.postController(
+                req as Request,
+                resp as Response,
+                next as NextFunction
+            );
+            expect(Profesional.create).toHaveBeenCalled();
+            expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
+        });
+        test('Then should send a error', async () => {
+            Profesional.create = jest.fn().mockReturnValue(undefined);
+
+            await controller.postController(
+                req as Request,
+                resp as Response,
+                next as NextFunction
+            );
+
+            expect(next).toHaveBeenCalled();
         });
     });
 });

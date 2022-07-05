@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 import mongoose, { HydratedDocument, Model } from 'mongoose';
 import { iTokenPayload } from '../interfaces/token.js';
 import * as aut from '../services/authorization.js';
+import { compare, encrypt } from '../services/encrypt.js';
 
 export class UserController<iUser> {
     constructor(public model: Model<iUser>) {}
@@ -11,7 +12,9 @@ export class UserController<iUser> {
         req;
         resp.setHeader('Content-type', 'application/json');
         resp.send(
-            JSON.stringify(await this.model.find().populate('favorites'))
+            JSON.stringify(
+                await this.model.find().populate('favorites', { __v: 0 })
+            )
         );
     };
 
@@ -35,7 +38,7 @@ export class UserController<iUser> {
     ) => {
         let newItem: HydratedDocument<any>;
         try {
-            req.body.passwd = await aut.encrypt(req.body.passwd);
+            req.body.passwd = await encrypt(req.body.passwd);
             newItem = await this.model.create(req.body);
             if (!newItem) {
                 throw new Error('Need data');
@@ -57,10 +60,7 @@ export class UserController<iUser> {
         const findUser: any = await this.model.findOne({
             userName: req.body.userName,
         });
-        if (
-            !findUser ||
-            !(await aut.compare(req.body.passwd, findUser.passwd))
-        ) {
+        if (!findUser || !(await compare(req.body.passwd, findUser.passwd))) {
             const error = new Error('Invalid user or password');
             error.name = 'UserAuthorizationError';
             next(error);

@@ -1,79 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1656960492385" clover="3.2.0">
-  <project timestamp="1656960492385" name="All files">
-    <metrics statements="111" coveredstatements="90" conditionals="19" coveredconditionals="14" methods="26" coveredmethods="19" elements="156" coveredelements="123" complexity="0" loc="111" ncloc="111" packages="4" files="8" classes="8"/>
+<coverage generated="1657027142517" clover="3.2.0">
+  <project timestamp="1657027142517" name="All files">
+    <metrics statements="126" coveredstatements="122" conditionals="21" coveredconditionals="20" methods="27" coveredmethods="24" elements="174" coveredelements="166" complexity="0" loc="126" ncloc="126" packages="4" files="9" classes="9"/>
     <package name="controllers">
-      <metrics statements="80" coveredstatements="64" conditionals="16" coveredconditionals="12" methods="15" coveredmethods="12"/>
+      <metrics statements="92" coveredstatements="92" conditionals="18" coveredconditionals="18" methods="16" coveredmethods="16"/>
       <file name="profesional.controller.js" path="/Users/adriancalerobarrero/Desktop/Proyectos ISDI/Proyecto final/Adrian_Calero_Back-Final-Project-202205-MAD/dist/controllers/profesional.controller.js">
-        <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
+        <metrics statements="24" coveredstatements="24" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="11" count="3" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
-        <line num="13" count="2" type="stmt"/>
-        <line num="14" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="19" count="1" type="stmt"/>
-      </file>
-      <file name="review.controller.js" path="/Users/adriancalerobarrero/Desktop/Proyectos ISDI/Proyecto final/Adrian_Calero_Back-Final-Project-202205-MAD/dist/controllers/review.controller.js">
-        <metrics statements="24" coveredstatements="8" conditionals="4" coveredconditionals="0" methods="5" coveredmethods="2"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-      </file>
-      <file name="user.controller.js" path="/Users/adriancalerobarrero/Desktop/Proyectos ISDI/Proyecto final/Adrian_Calero_Back-Final-Project-202205-MAD/dist/controllers/user.controller.js">
-        <metrics statements="44" coveredstatements="44" conditionals="10" coveredconditionals="10" methods="7" coveredmethods="7"/>
-        <line num="6" count="10" type="stmt"/>
-        <line num="8" count="10" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
-        <line num="13" count="10" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
-        <line num="18" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="19" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="26" count="10" type="stmt"/>
-        <line num="28" count="2" type="stmt"/>
-        <line num="29" count="2" type="stmt"/>
-        <line num="30" count="2" type="stmt"/>
-        <line num="31" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="32" count="1" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="24" count="5" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="28" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
         <line num="37" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+      </file>
+      <file name="review.controller.js" path="/Users/adriancalerobarrero/Desktop/Proyectos ISDI/Proyecto final/Adrian_Calero_Back-Final-Project-202205-MAD/dist/controllers/review.controller.js">
+        <metrics statements="24" coveredstatements="24" conditionals="4" coveredconditionals="4" methods="5" coveredmethods="5"/>
+        <line num="5" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="36" count="6" type="stmt"/>
+        <line num="37" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+      </file>
+      <file name="user.controller.js" path="/Users/adriancalerobarrero/Desktop/Proyectos ISDI/Proyecto final/Adrian_Calero_Back-Final-Project-202205-MAD/dist/controllers/user.controller.js">
+        <metrics statements="44" coveredstatements="44" conditionals="10" coveredconditionals="10" methods="7" coveredmethods="7"/>
+        <line num="7" count="10" type="stmt"/>
+        <line num="9" count="10" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="10" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="27" count="10" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
         <line num="40" count="1" type="stmt"/>
         <line num="41" count="1" type="stmt"/>
-        <line num="43" count="10" type="stmt"/>
-        <line num="44" count="2" type="stmt"/>
-        <line num="47" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="44" count="10" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="48" count="2" type="cond" truecount="4" falsecount="0"/>
         <line num="49" count="1" type="stmt"/>
         <line num="50" count="1" type="stmt"/>
         <line num="51" count="1" type="stmt"/>
@@ -95,12 +107,13 @@
       </file>
     </package>
     <package name="db">
-      <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="mongoose.js" path="/Users/adriancalerobarrero/Desktop/Proyectos ISDI/Proyecto final/Adrian_Calero_Back-Final-Project-202205-MAD/dist/db/mongoose.js">
-        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="3" count="3" type="cond" truecount="1" falsecount="1"/>
-        <line num="6" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
+        <metrics statements="4" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="5" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="stmt"/>
       </file>
     </package>
     <package name="models">
@@ -111,8 +124,8 @@
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
       </file>
       <file name="review.model.js" path="/Users/adriancalerobarrero/Desktop/Proyectos ISDI/Proyecto final/Adrian_Calero_Back-Final-Project-202205-MAD/dist/models/review.model.js">
         <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
@@ -120,8 +133,8 @@
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
       </file>
       <file name="user.model.js" path="/Users/adriancalerobarrero/Desktop/Proyectos ISDI/Proyecto final/Adrian_Calero_Back-Final-Project-202205-MAD/dist/models/user.model.js">
         <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
@@ -135,18 +148,23 @@
       </file>
     </package>
     <package name="services">
-      <metrics statements="9" coveredstatements="8" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="3"/>
+      <metrics statements="11" coveredstatements="11" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="4"/>
       <file name="authorization.js" path="/Users/adriancalerobarrero/Desktop/Proyectos ISDI/Proyecto final/Adrian_Calero_Back-Final-Project-202205-MAD/dist/services/authorization.js">
-        <metrics statements="9" coveredstatements="8" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="3"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="cond" truecount="1" falsecount="0"/>
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+      </file>
+      <file name="encrypt.js" path="/Users/adriancalerobarrero/Desktop/Proyectos ISDI/Proyecto final/Adrian_Calero_Back-Final-Project-202205-MAD/dist/services/encrypt.js">
+        <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="2"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="cond" truecount="1" falsecount="0"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
       </file>
     </package>
   </project>

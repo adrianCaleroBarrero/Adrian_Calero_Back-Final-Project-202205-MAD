@@ -15,6 +15,8 @@ const reviewSchema = new mongoose.Schema({
     },
 });
 reviewSchema.set('toJSON', {
-    transform: (document, returnedObject) => delete returnedObject.__v,
+    transform: (document, returnedObject) => {
+        delete returnedObject.__v;
+    },
 });
 export const Review = mongoose.model('Review', reviewSchema);
