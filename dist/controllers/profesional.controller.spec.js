@@ -2,6 +2,8 @@ import { Profesional } from '../models/profesional.model';
 import { ProfesionalController } from './profesional.controller';
 jest.mock('../models/profesional.model');
 describe('Given the user controller', () => {
+    process.env.URL_MONGO_TEST = '';
+    console.log('Process env url test', process.env.URL_MONGO_TEST);
     let controller;
     let req;
     let resp;

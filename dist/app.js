@@ -4,6 +4,8 @@ import cors from 'cors';
 import { userRoutes } from './routes/user.routes.js';
 import { profesionalRoutes } from './routes/profesional.routes.js';
 import { reviewRoutes } from './routes/review.routes.js';
+import dotenv from 'dotenv';
+dotenv.config();
 export const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
