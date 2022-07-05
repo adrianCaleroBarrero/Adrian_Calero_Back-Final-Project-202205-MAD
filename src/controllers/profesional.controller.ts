@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Request, Response } from 'express';
 import { Model } from 'mongoose';
-import { iProfesional } from '../models/profesional.model';
 
 export class ProfesionalController<iProfesional> {
     constructor(public model: Model<iProfesional>) {}
@@ -14,7 +13,10 @@ export class ProfesionalController<iProfesional> {
 
     getController = async (req: Request, resp: Response) => {
         const result = await this.model.findById(req.params.id);
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         resp.setHeader('Content-type', 'application/json');
         if (result) {
             resp.send(JSON.stringify(result));

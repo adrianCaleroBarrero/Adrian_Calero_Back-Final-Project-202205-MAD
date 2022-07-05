@@ -13,7 +13,10 @@ export class ReviewController<iReview> {
 
         resp.send(
             JSON.stringify(
-                await this.model.find().populate('Profesional').populate('User')
+                await this.model
+                    .find({ worker: req.params.id })
+                    .populate('worker')
+                    .populate('client')
             )
         );
     };
