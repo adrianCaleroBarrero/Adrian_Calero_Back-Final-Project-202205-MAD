@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 
 const errors: any = {
-    ValidationError: 406, // Not Acceptable
-    CastError: 422, // Unprocessable entity
-    UserError: 404, // Not found
-    UserAuthorizationError: 401, // Unauthorized
-    TokenError: 401, // Unauthorized
+    ValidationError: 406,
+    CastError: 422,
+    UserError: 404,
+    UserAuthorizationError: 401,
+    TokenError: 401,
 };
 
 export const errorControl = (
@@ -19,6 +19,7 @@ export const errorControl = (
 
     let status = 500;
     if (error.name) status = errors[error.name];
+    console.log(error.message);
 
     resp.status(status);
     const result = {
