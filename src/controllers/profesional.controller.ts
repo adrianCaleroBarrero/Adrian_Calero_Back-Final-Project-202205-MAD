@@ -11,24 +11,40 @@ export class ProfesionalController<iProfesional> {
         resp.send(await this.model.find());
     };
 
-    getController = async (req: Request, resp: Response) => {
-        const result = await this.model.findById(req.params.id);
-        resp.setHeader('Content-type', 'application/json');
-        if (result) {
-            resp.send(JSON.stringify(result));
-        } else {
-            resp.status(404);
-            resp.send(JSON.stringify({}));
+    getController = async (
+        req: Request,
+        resp: Response,
+        next: NextFunction
+    ) => {
+        try {
+            const result = await this.model.findById(req.params.id);
+            resp.setHeader('Content-type', 'application/json');
+            if (result) {
+                resp.send(JSON.stringify(result));
+            } else {
+                const error = new Error('User not found');
+                error.name = 'UserError';
+                next(error);
+            }
+        } catch (error) {
+            next(error);
         }
     };
 
-    postController = async (req: Request, resp: Response) => {
-        let newItem;
+    postController = async (
+        req: Request,
+        resp: Response,
+        next: NextFunction
+    ) => {
+        try {
+            let newItem;
+            newItem = await this.model.create(req.body);
 
-        newItem = await this.model.create(req.body);
-
-        resp.setHeader('Content-type', 'application/json');
-        resp.status(201);
-        resp.send(JSON.stringify(newItem));
+            resp.setHeader('Content-type', 'application/json');
+            resp.status(201);
+            resp.send(JSON.stringify(newItem));
+        } catch (error) {
+            next(error);
+        }
     };
 }

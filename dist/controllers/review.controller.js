@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 export class ReviewController {
     model;
     constructor(model) {
@@ -12,21 +11,34 @@ export class ReviewController {
             .populate('worker')
             .populate('client')));
     };
-    postController = async (req, resp) => {
-        let newItem;
-        newItem = await this.model.create(req.body);
-        resp.setHeader('Content-type', 'application/json');
-        resp.status(201);
-        resp.send(JSON.stringify(newItem));
+    postController = async (req, resp, next) => {
+        try {
+            const newItem = await this.model.create(req.body);
+            resp.setHeader('Content-type', 'application/json');
+            resp.status(201);
+            resp.send(JSON.stringify(newItem));
+        }
+        catch (error) {
+            next(error);
+        }
     };
-    patchController = async (req, resp) => {
-        const modifyItem = await this.model.findByIdAndUpdate(req.params.id, req.body);
-        resp.setHeader('Content-type', 'application/json');
-        resp.send(JSON.stringify(modifyItem));
+    patchController = async (req, resp, next) => {
+        try {
+            const modifyItem = await this.model.findByIdAndUpdate(req.params.id, req.body);
+            resp.setHeader('Content-type', 'application/json');
+            resp.send(JSON.stringify(modifyItem));
+        }
+        catch (error) {
+            next(error);
+        }
     };
-    deleteController = async (req, resp) => {
-    
-        const deleteItem = await this.model.findByIdAndDelete(req.params.id);
-        resp.send(JSON.stringify(deleteItem));
+    deleteController = async (req, resp, next) => {
+        try {
+            const deleteItem = await this.model.findByIdAndDelete(req.params.id);
+            resp.send(JSON.stringify(deleteItem));
+        }
+        catch (error) {
+            next(error);
+        }
     };
 }

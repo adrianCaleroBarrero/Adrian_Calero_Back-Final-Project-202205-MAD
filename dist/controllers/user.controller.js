@@ -45,12 +45,21 @@ export class UserController {
     };
     loginController = async (req, resp, next) => {
         try {
-            const findUser = await this.model.findOne({
-                userName: req.body.userName,
-            });
+            let findUser;
+            if (req.body.token) {
+                findUser = await this.model.findOne({
+                    userName: req.body.userName,
+                    token: req.body.token,
+                });
+            }
+            else {
+                findUser = await this.model.findOne({
+                    userName: req.body.userName,
+                });
+            }
             if (!findUser ||
                 !(await compare(req.body.passwd, findUser.passwd))) {
-                const error = new Error('Invalid user or password');
+                const error = new Error('Invalid user or token');
                 error.name = 'UserAuthorizationError';
                 next(error);
                 return;

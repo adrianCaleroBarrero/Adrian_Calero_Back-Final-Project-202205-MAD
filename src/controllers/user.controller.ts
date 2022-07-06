@@ -65,18 +65,28 @@ export class UserController<iUser> {
         next: NextFunction
     ) => {
         try {
-            const findUser: any = await this.model.findOne({
-                userName: req.body.userName,
-            });
+            let findUser: any;
+            if (req.body.token) {
+                findUser = await this.model.findOne({
+                    userName: req.body.userName,
+                    token: req.body.token,
+                });
+            } else {
+                findUser = await this.model.findOne({
+                    userName: req.body.userName,
+                });
+            }
+
             if (
                 !findUser ||
                 !(await compare(req.body.passwd, findUser.passwd))
             ) {
-                const error = new Error('Invalid user or password');
+                const error = new Error('Invalid user or token');
                 error.name = 'UserAuthorizationError';
                 next(error);
                 return;
             }
+
             const tokenPayload: iTokenPayload = {
                 id: findUser.id,
                 name: findUser.name,
