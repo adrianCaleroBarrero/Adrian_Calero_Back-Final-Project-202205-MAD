@@ -3,15 +3,15 @@ const errors = {
     CastError: 422,
     UserError: 404,
     UserAuthorizationError: 401,
-    TokenError: 401, // Unauthorized
+    TokenError: 401,
 };
 export const errorControl = (error, req, resp, next) => {
     req;
     next;
-    console.log(error.message);
     let status = 500;
     if (error.name)
         status = errors[error.name];
+    console.log(error.message);
     resp.status(status);
     const result = {
         status: status,

@@ -16,7 +16,9 @@ describe('Given the user controller', () => {
             params: {
                 id: '1',
             },
-            body: {},
+            body: {
+                token: '2',
+            },
         };
         resp = {
             setHeader: jest.fn(),
@@ -42,16 +44,23 @@ describe('Given the user controller', () => {
             User.findById = jest.fn().mockReturnValue({
                 populate: jest.fn().mockResolvedValue({ favorites: 'test' }),
             });
-            await controller.getController(req, resp);
+            await controller.getController(req, resp, next);
             expect(User.findById).toHaveBeenCalled();
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({ favorites: 'test' }));
         });
-        test('Then should send a status 404', async () => {
+        test('Then should be call next function', async () => {
             User.findById = jest.fn().mockReturnValue({
                 populate: jest.fn().mockResolvedValue(undefined),
             });
-            await controller.getController(req, resp);
-            expect(resp.status).toHaveBeenCalledWith(404);
+            await controller.getController(req, resp, next);
+            expect(next).toHaveBeenCalled();
+        });
+        test('Then should be catch a error', async () => {
+            User.findById = jest.fn().mockReturnValue({
+                populate: jest.fn().mockRejectedValue({}),
+            });
+            await controller.getController(req, resp, next);
+            expect(next).toHaveBeenCalled();
         });
     });
     describe('When use postController', () => {
@@ -62,8 +71,8 @@ describe('Given the user controller', () => {
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
             expect(resp.status).toHaveBeenCalledWith(201);
         });
-        test('Then should send a error', async () => {
-            User.create = jest.fn().mockReturnValue(undefined);
+        test('Then should be catch a error', async () => {
+            User.create = jest.fn().mockRejectedValue({});
             await controller.postController(req, resp, next);
             expect(next).toHaveBeenCalled();
         });
@@ -84,29 +93,39 @@ describe('Given the user controller', () => {
             await controller.loginController(req, resp, next);
             expect(next).toHaveBeenCalled();
         });
+        test('Then should be catch a error', async () => {
+            User.findOne = jest.fn().mockRejectedValue({});
+            await controller.loginController(req, resp, next);
+            expect(next).toHaveBeenCalled();
+        });
     });
     describe('When use patchController', () => {
         test('Then should send a response', async () => {
             User.findByIdAndUpdate = jest.fn().mockReturnValue({});
-            await controller.patchController(req, resp);
+            await controller.patchController(req, resp, next);
             expect(User.findByIdAndUpdate).toHaveBeenCalled();
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
+        });
+        test('Then should be catch a error', async () => {
+            User.findByIdAndUpdate = jest.fn().mockRejectedValue({});
+            await controller.patchController(req, resp, next);
+            expect(next).toHaveBeenCalled();
         });
     });
     describe('When use deleteController', () => {
         test('Then should send a response', async () => {
             mongoose.Types.ObjectId.isValid = jest.fn().mockReturnValue(1);
             User.findByIdAndDelete = jest.fn().mockReturnValue({});
-            await controller.deleteController(req, resp);
+            await controller.deleteController(req, resp, next);
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
         });
-        test('Then should send a status 404', async () => {
+        test('Then should be next called', async () => {
             mongoose.Types.ObjectId.isValid = jest
                 .fn()
                 .mockReturnValue(undefined);
             resp.status = jest.fn().mockReturnValue({ json: jest.fn() });
-            await controller.deleteController(req, resp);
-            expect(resp.status).toHaveBeenCalledWith(404);
+            await controller.deleteController(req, resp, next);
+            expect(next).toHaveBeenCalled();
         });
     });
 });

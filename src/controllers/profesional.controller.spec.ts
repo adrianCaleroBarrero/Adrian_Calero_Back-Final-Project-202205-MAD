@@ -43,16 +43,35 @@ describe('Given the user controller', () => {
         test('Then should send a response', async () => {
             Profesional.findById = jest.fn().mockReturnValue({});
 
-            await controller.getController(req as Request, resp as Response);
+            await controller.getController(
+                req as Request,
+                resp as Response,
+                next
+            );
             expect(Profesional.findById).toHaveBeenCalled();
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
         });
-        test('Then should send a status 404', async () => {
+        test('Then should be call a next function', async () => {
             Profesional.findById = jest.fn().mockReturnValue(undefined);
 
-            await controller.getController(req as Request, resp as Response);
+            await controller.getController(
+                req as Request,
+                resp as Response,
+                next
+            );
 
-            expect(resp.status).toHaveBeenCalledWith(404);
+            expect(next).toHaveBeenCalled();
+        });
+        test('Then should be catch a error', async () => {
+            Profesional.findById = jest.fn().mockRejectedValue({});
+
+            await controller.getController(
+                req as Request,
+                resp as Response,
+                next
+            );
+
+            expect(next).toHaveBeenCalled();
         });
     });
 
@@ -63,20 +82,19 @@ describe('Given the user controller', () => {
             await controller.postController(
                 req as Request,
                 resp as Response,
-                next as NextFunction
+                next
             );
             expect(Profesional.create).toHaveBeenCalled();
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
         });
-        test('Then should send a error', async () => {
-            Profesional.create = jest.fn().mockReturnValue(undefined);
+        test('Then should be catch a error', async () => {
+            Profesional.create = jest.fn().mockRejectedValue({});
 
             await controller.postController(
                 req as Request,
                 resp as Response,
-                next as NextFunction
+                next
             );
-
             expect(next).toHaveBeenCalled();
         });
     });

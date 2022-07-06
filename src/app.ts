@@ -5,6 +5,7 @@ import { userRoutes } from './routes/user.routes.js';
 import { profesionalRoutes } from './routes/profesional.routes.js';
 import { reviewRoutes } from './routes/review.routes.js';
 import dotenv from 'dotenv';
+import { errorControl } from './middleware/error-control.js';
 
 dotenv.config();
 
@@ -20,3 +21,5 @@ app.use('/profesional', profesionalRoutes);
 app.use('/profesionals', profesionalRoutes);
 app.use('/review', reviewRoutes);
 app.use('/reviews', reviewRoutes);
+
+app.use(errorControl);

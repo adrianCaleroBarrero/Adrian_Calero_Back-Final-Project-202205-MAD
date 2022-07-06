@@ -18,16 +18,25 @@ export class UserController<iUser> {
         );
     };
 
-    getController = async (req: Request, resp: Response) => {
-        const result = await this.model
-            .findById(req.params.id)
-            .populate('favorites');
-        resp.setHeader('Content-type', 'application/json');
-        if (result) {
-            resp.send(JSON.stringify(result));
-        } else {
-            resp.status(404);
-            resp.send(JSON.stringify({}));
+    getController = async (
+        req: Request,
+        resp: Response,
+        next: NextFunction
+    ) => {
+        try {
+            const result = await this.model
+                .findById(req.params.id)
+                .populate('favorites');
+            resp.setHeader('Content-type', 'application/json');
+            if (result) {
+                resp.send(JSON.stringify(result));
+            } else {
+                const error = new Error('User not found');
+                error.name = 'UserError';
+                next(error);
+            }
+        } catch (error) {
+            next(error);
         }
     };
 
@@ -36,20 +45,18 @@ export class UserController<iUser> {
         resp: Response,
         next: NextFunction
     ) => {
-        let newItem: HydratedDocument<any>;
         try {
+            let newItem: HydratedDocument<any>;
+
             req.body.passwd = await encrypt(req.body.passwd);
             newItem = await this.model.create(req.body);
-            if (!newItem) {
-                throw new Error('Need data');
-            }
+
+            resp.setHeader('Content-type', 'application/json');
+            resp.status(201);
+            resp.send(JSON.stringify(newItem));
         } catch (error) {
             next(error);
-            return;
         }
-        resp.setHeader('Content-type', 'application/json');
-        resp.status(201);
-        resp.send(JSON.stringify(newItem));
     };
 
     loginController = async (
@@ -57,40 +64,77 @@ export class UserController<iUser> {
         resp: Response,
         next: NextFunction
     ) => {
-        const findUser: any = await this.model.findOne({
-            userName: req.body.userName,
-        });
-        if (!findUser || !(await compare(req.body.passwd, findUser.passwd))) {
-            const error = new Error('Invalid user or password');
-            error.name = 'UserAuthorizationError';
+        try {
+            let findUser: any;
+            if (req.body.token) {
+                findUser = await this.model.findOne({
+                    userName: req.body.userName,
+                    token: req.body.token,
+                });
+            } else {
+                findUser = await this.model.findOne({
+                    userName: req.body.userName,
+                });
+            }
+
+            if (
+                !findUser ||
+                !(await compare(req.body.passwd, findUser.passwd))
+            ) {
+                const error = new Error('Invalid user or token');
+                error.name = 'UserAuthorizationError';
+                next(error);
+                return;
+            }
+
+            const tokenPayload: iTokenPayload = {
+                id: findUser.id,
+                name: findUser.name,
+            };
+            const token = aut.createToken(tokenPayload);
+            resp.setHeader('Content-type', 'application/json');
+            resp.status(202);
+            resp.send({ token, id: findUser.id });
+        } catch (error) {
             next(error);
-            return;
         }
-        const tokenPayload: iTokenPayload = {
-            id: findUser.id,
-            name: findUser.name,
-        };
-        const token = aut.createToken(tokenPayload);
-        resp.setHeader('Content-type', 'application/json');
-        resp.status(202);
-        resp.send({ token, id: findUser.id });
     };
 
-    patchController = async (req: Request, resp: Response) => {
-        const modifyItem = await this.model.findByIdAndUpdate(
-            req.params.id,
-            req.body
-        );
-        resp.setHeader('Content-type', 'application/json');
-        resp.send(JSON.stringify(modifyItem));
+    patchController = async (
+        req: Request,
+        resp: Response,
+        next: NextFunction
+    ) => {
+        try {
+            const modifyItem = await this.model.findByIdAndUpdate(
+                req.params.id,
+                req.body
+            );
+            resp.setHeader('Content-type', 'application/json');
+            resp.send(JSON.stringify(modifyItem));
+        } catch (error) {
+            next(error);
+        }
     };
 
-    deleteController = async (req: Request, resp: Response) => {
-        if (!mongoose.Types.ObjectId.isValid(req.params.id))
-            return resp
-                .status(404)
-                .json({ msg: `No task with id :${req.params.id}` });
-        const deleteItem = await this.model.findByIdAndDelete(req.params.id);
-        resp.send(JSON.stringify(deleteItem));
+    deleteController = async (
+        req: Request,
+        resp: Response,
+        next: NextFunction
+    ) => {
+        try {
+            if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+                const error = new Error('Invalid id');
+                error.name = 'UserError';
+                next(error);
+            }
+
+            const deleteItem = await this.model.findByIdAndDelete(
+                req.params.id
+            );
+            resp.send(JSON.stringify(deleteItem));
+        } catch (error) {
+            next(error);
+        }
     };
 }

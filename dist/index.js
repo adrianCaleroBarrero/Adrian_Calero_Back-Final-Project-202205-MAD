@@ -1,9 +1,6 @@
 import { app } from './app.js';
 import http from 'http';
 const PORT = process.env.PORT || 3500;
-const onError = (err) => {
-    console.log(err.message);
-};
 const onListening = () => {
     const addr = server.address();
     //  { address: '::', family: 6, port: 3400 }
@@ -16,6 +13,5 @@ const onListening = () => {
 };
 app.set('port', PORT);
 export const server = http.createServer(app);
-server.on('error', onError);
 server.on('listening', onListening);
 server.listen(PORT);

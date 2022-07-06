@@ -16,8 +16,12 @@ export interface iUser {
 
 const userSchema = new mongoose.Schema({
     avatar: mongoose.SchemaTypes.String,
-    userName: { type: mongoose.SchemaTypes.String, required: true },
-    email: { type: mongoose.SchemaTypes.String, required: true },
+    userName: {
+        type: mongoose.SchemaTypes.String,
+        required: true,
+        unique: true,
+    },
+    email: { type: mongoose.SchemaTypes.String, required: true, unique: true },
     passwd: { type: mongoose.SchemaTypes.String, required: true },
     favorites: [
         {

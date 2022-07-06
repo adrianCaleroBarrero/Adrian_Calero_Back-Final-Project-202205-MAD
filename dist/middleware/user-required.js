@@ -1,8 +1,8 @@
-import { User } from '../models/user.model.js';
+import { Review } from '../models/review.model.js';
 export const userRequired = async (req, res, next) => {
     const userID = req.tokenPayload.id;
-    const findUser = await User.findById(req.params.id);
-    if (String(findUser?.favorites) === String(userID)) {
+    const foundRevuew = await Review.findById(req.params.id);
+    if (String(foundRevuew?.client) === String(userID)) {
         next();
     }
     else {

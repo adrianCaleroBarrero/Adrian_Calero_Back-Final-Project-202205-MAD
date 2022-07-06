@@ -6,8 +6,8 @@ import { mongooseConnect, Relation } from '../db/mongoose.js';
 })();
 
 export interface iReview {
-    worker: Relation;
-    client: Relation;
+    worker: Relation | null;
+    client: Relation | null;
     date: string;
     reviews: {
         img: string[];
