@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { iReview, Review } from '../models/review.model';
 import { ReviewController } from './review.controller';
@@ -9,7 +9,6 @@ describe('Given the review controller', () => {
     let controller: ReviewController<iReview>;
     let req: Partial<Request>;
     let resp: Partial<Response>;
-    let next: NextFunction;
 
     beforeEach(() => {
         req = {
@@ -23,7 +22,6 @@ describe('Given the review controller', () => {
             send: jest.fn(),
             status: jest.fn(),
         };
-        next = jest.fn();
 
         controller = new ReviewController(Review) as any;
     });
@@ -48,24 +46,9 @@ describe('Given the review controller', () => {
         test('Then should send a response', async () => {
             Review.create = jest.fn().mockReturnValue({});
 
-            await controller.postController(
-                req as Request,
-                resp as Response,
-                next as NextFunction
-            );
+            await controller.postController(req as Request, resp as Response);
             expect(Review.create).toHaveBeenCalled();
             expect(resp.status).toHaveBeenCalledWith(201);
-        });
-        test('Then should send a error', async () => {
-            Review.create = jest.fn().mockReturnValue(undefined);
-
-            await controller.postController(
-                req as Request,
-                resp as Response,
-                next as NextFunction
-            );
-
-            expect(next).toHaveBeenCalled();
         });
     });
 
@@ -87,17 +70,6 @@ describe('Given the review controller', () => {
             await controller.deleteController(req as Request, resp as Response);
 
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
-        });
-
-        test('Then send a status 404', async () => {
-            mongoose.Types.ObjectId.isValid = jest
-                .fn()
-                .mockReturnValue(undefined);
-            resp.status = jest.fn().mockReturnValue({ json: jest.fn() });
-
-            await controller.deleteController(req as Request, resp as Response);
-
-            expect(resp.status).toHaveBeenCalledWith(404);
         });
     });
 });

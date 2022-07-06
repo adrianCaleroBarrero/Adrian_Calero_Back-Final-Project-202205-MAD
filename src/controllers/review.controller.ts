@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import mongoose, { Model } from 'mongoose';
 import { iProfesional } from '../models/profesional.model';
 import { iReview } from '../models/review.model.js';
@@ -21,21 +21,11 @@ export class ReviewController<iReview> {
         );
     };
 
-    postController = async (
-        req: Request,
-        resp: Response,
-        next: NextFunction
-    ) => {
+    postController = async (req: Request, resp: Response) => {
         let newItem;
-        try {
-            newItem = await this.model.create(req.body);
-            if (!newItem) {
-                throw new Error('Need data');
-            }
-        } catch (error) {
-            next(error);
-            return;
-        }
+
+        newItem = await this.model.create(req.body);
+
         resp.setHeader('Content-type', 'application/json');
         resp.status(201);
         resp.send(JSON.stringify(newItem));
@@ -51,10 +41,6 @@ export class ReviewController<iReview> {
     };
 
     deleteController = async (req: Request, resp: Response) => {
-        if (!mongoose.Types.ObjectId.isValid(req.params.id))
-            return resp
-                .status(404)
-                .json({ msg: `No task with id :${req.params.id}` });
         const deleteItem = await this.model.findByIdAndDelete(req.params.id);
         resp.send(JSON.stringify(deleteItem));
     };

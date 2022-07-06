@@ -6,7 +6,6 @@ describe('Given the review controller', () => {
     let controller;
     let req;
     let resp;
-    let next;
     beforeEach(() => {
         req = {
             params: {
@@ -18,7 +17,6 @@ describe('Given the review controller', () => {
             send: jest.fn(),
             status: jest.fn(),
         };
-        next = jest.fn();
         controller = new ReviewController(Review);
     });
     describe('When use getAllInProfesionalController', () => {
@@ -36,14 +34,9 @@ describe('Given the review controller', () => {
     describe('When use postController', () => {
         test('Then should send a response', async () => {
             Review.create = jest.fn().mockReturnValue({});
-            await controller.postController(req, resp, next);
+            await controller.postController(req, resp);
             expect(Review.create).toHaveBeenCalled();
             expect(resp.status).toHaveBeenCalledWith(201);
-        });
-        test('Then should send a error', async () => {
-            Review.create = jest.fn().mockReturnValue(undefined);
-            await controller.postController(req, resp, next);
-            expect(next).toHaveBeenCalled();
         });
     });
     describe('When use patchController', () => {
@@ -59,14 +52,6 @@ describe('Given the review controller', () => {
             Review.findByIdAndDelete = jest.fn().mockReturnValue({});
             await controller.deleteController(req, resp);
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
-        });
-        test('Then send a status 404', async () => {
-            mongoose.Types.ObjectId.isValid = jest
-                .fn()
-                .mockReturnValue(undefined);
-            resp.status = jest.fn().mockReturnValue({ json: jest.fn() });
-            await controller.deleteController(req, resp);
-            expect(resp.status).toHaveBeenCalledWith(404);
         });
     });
 });

@@ -6,12 +6,9 @@ export class ProfesionalController<iProfesional> {
     constructor(public model: Model<iProfesional>) {}
 
     getAllController = async (req: Request, resp: Response) => {
-        const result = await this.model.find();
-        console.log(JSON.stringify(result));
-
         req;
         resp.setHeader('Content-type', 'application/json');
-        resp.send(result);
+        resp.send(await this.model.find());
     };
 
     getController = async (req: Request, resp: Response) => {

@@ -4,11 +4,9 @@ export class ProfesionalController {
         this.model = model;
     }
     getAllController = async (req, resp) => {
-        const result = await this.model.find();
-        console.log(JSON.stringify(result));
         req;
         resp.setHeader('Content-type', 'application/json');
-        resp.send(result);
+        resp.send(await this.model.find());
     };
     getController = async (req, resp) => {
         const result = await this.model.findById(req.params.id);
