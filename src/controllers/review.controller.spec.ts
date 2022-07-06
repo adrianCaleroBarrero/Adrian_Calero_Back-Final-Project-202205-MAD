@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { iReview, Review } from '../models/review.model';
 import { ReviewController } from './review.controller';
@@ -9,6 +9,7 @@ describe('Given the review controller', () => {
     let controller: ReviewController<iReview>;
     let req: Partial<Request>;
     let resp: Partial<Response>;
+    let next: NextFunction;
 
     beforeEach(() => {
         req = {
@@ -22,6 +23,7 @@ describe('Given the review controller', () => {
             send: jest.fn(),
             status: jest.fn(),
         };
+        next = jest.fn();
 
         controller = new ReviewController(Review) as any;
     });
@@ -46,9 +48,23 @@ describe('Given the review controller', () => {
         test('Then should send a response', async () => {
             Review.create = jest.fn().mockReturnValue({});
 
-            await controller.postController(req as Request, resp as Response);
+            await controller.postController(
+                req as Request,
+                resp as Response,
+                next
+            );
             expect(Review.create).toHaveBeenCalled();
             expect(resp.status).toHaveBeenCalledWith(201);
+        });
+        test('Then should be catch a error', async () => {
+            Review.create = jest.fn().mockRejectedValue({});
+
+            await controller.postController(
+                req as Request,
+                resp as Response,
+                next
+            );
+            expect(next).toHaveBeenCalled();
         });
     });
 
@@ -56,9 +72,24 @@ describe('Given the review controller', () => {
         test('Then send a response', async () => {
             Review.findByIdAndUpdate = jest.fn().mockReturnValue({});
 
-            await controller.patchController(req as Request, resp as Response);
+            await controller.patchController(
+                req as Request,
+                resp as Response,
+                next
+            );
 
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
+        });
+        test('Then catch a error', async () => {
+            Review.findByIdAndUpdate = jest.fn().mockRejectedValue({});
+
+            await controller.patchController(
+                req as Request,
+                resp as Response,
+                next
+            );
+
+            expect(next).toHaveBeenCalled();
         });
     });
 
@@ -67,9 +98,25 @@ describe('Given the review controller', () => {
             mongoose.Types.ObjectId.isValid = jest.fn().mockReturnValue({});
             Review.findByIdAndDelete = jest.fn().mockReturnValue({});
 
-            await controller.deleteController(req as Request, resp as Response);
+            await controller.deleteController(
+                req as Request,
+                resp as Response,
+                next
+            );
 
             expect(resp.send).toHaveBeenCalledWith(JSON.stringify({}));
+        });
+        test('Then catch a error', async () => {
+            mongoose.Types.ObjectId.isValid = jest.fn().mockReturnValue({});
+            Review.findByIdAndDelete = jest.fn().mockRejectedValue({});
+
+            await controller.deleteController(
+                req as Request,
+                resp as Response,
+                next
+            );
+
+            expect(next).toHaveBeenCalled();
         });
     });
 });

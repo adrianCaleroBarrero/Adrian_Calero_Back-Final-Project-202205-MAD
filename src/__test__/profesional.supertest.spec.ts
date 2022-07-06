@@ -3,11 +3,17 @@ import { initDB } from '../db/init.db';
 import { mongooseConnect } from '../db/mongoose';
 import request from 'supertest';
 import { app } from '../app';
+import { Review } from '../models/review.model';
+import { Profesional } from '../models/profesional.model';
+import { User } from '../models/user.model';
 
 describe('Given the routes of /user', () => {
     let data: { [key: string]: Array<any> };
 
     beforeEach(async () => {
+        await Review.deleteMany({});
+        await Profesional.deleteMany({});
+        await User.deleteMany({});
         data = await initDB();
         await mongooseConnect();
     });

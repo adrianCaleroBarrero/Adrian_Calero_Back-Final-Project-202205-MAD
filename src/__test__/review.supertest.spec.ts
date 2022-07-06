@@ -12,12 +12,10 @@ describe('Given the routes of /review', () => {
     let data: { [key: string]: Array<any> };
     let token: string;
 
-    beforeAll(async () => {
+    beforeEach(async () => {
         await Review.deleteMany({});
         await Profesional.deleteMany({});
         await User.deleteMany({});
-    });
-    beforeEach(async () => {
         data = await initDB();
         await mongooseConnect();
         token = jwt.sign(

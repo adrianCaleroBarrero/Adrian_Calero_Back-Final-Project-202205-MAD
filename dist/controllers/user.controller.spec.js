@@ -16,7 +16,9 @@ describe('Given the user controller', () => {
             params: {
                 id: '1',
             },
-            body: {},
+            body: {
+                token: '2',
+            },
         };
         resp = {
             setHeader: jest.fn(),

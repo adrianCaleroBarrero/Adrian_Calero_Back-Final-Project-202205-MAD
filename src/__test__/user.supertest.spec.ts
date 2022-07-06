@@ -4,11 +4,17 @@ import { mongooseConnect } from '../db/mongoose';
 import jwt from 'jsonwebtoken';
 import request from 'supertest';
 import { app } from '../app';
+import { Review } from '../models/review.model';
+import { Profesional } from '../models/profesional.model';
+import { User } from '../models/user.model';
 
 describe('Given the routes of /user', () => {
     let data: { [key: string]: Array<any> };
     let token: string;
     beforeEach(async () => {
+        await Review.deleteMany({});
+        await Profesional.deleteMany({});
+        await User.deleteMany({});
         data = await initDB();
         await mongooseConnect();
         token = jwt.sign(
@@ -60,12 +66,18 @@ describe('Given the routes of /user', () => {
     describe('When method POST with login is used', () => {
         test('Then status should be 202', async () => {
             const loginUser = {
-                userName: data.users[0].userName,
+                userName: 'Jesus',
                 passwd: '1234',
             };
+            await request(app).post('/user/register/').send({
+                userName: 'Jesus',
+                email: 'jesus@sample.com',
+                passwd: '1234',
+            });
             const response = await request(app)
                 .post('/user/login')
                 .send(loginUser);
+
             expect(response.statusCode).toBe(202);
         });
 
