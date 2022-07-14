@@ -71,7 +71,7 @@ export class UserController {
             const token = aut.createToken(tokenPayload);
             resp.setHeader('Content-type', 'application/json');
             resp.status(202);
-            resp.send({ token, id: findUser.id });
+            resp.send({ token, user: findUser });
         }
         catch (error) {
             next(error);

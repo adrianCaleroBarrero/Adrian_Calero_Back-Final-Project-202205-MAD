@@ -64,40 +64,33 @@ export class UserController<iUser> {
         resp: Response,
         next: NextFunction
     ) => {
-        try {
-            let findUser: any;
-            if (req.body.token) {
-                findUser = await this.model.findOne({
-                    userName: req.body.userName,
-                    token: req.body.token,
-                });
-            } else {
-                findUser = await this.model.findOne({
-                    userName: req.body.userName,
-                });
-            }
-
-            if (
-                !findUser ||
-                !(await compare(req.body.passwd, findUser.passwd))
-            ) {
-                const error = new Error('Invalid user or token');
-                error.name = 'UserAuthorizationError';
-                next(error);
-                return;
-            }
-
-            const tokenPayload: iTokenPayload = {
-                id: findUser.id,
-                name: findUser.name,
-            };
-            const token = aut.createToken(tokenPayload);
-            resp.setHeader('Content-type', 'application/json');
-            resp.status(202);
-            resp.send({ token, id: findUser.id });
-        } catch (error) {
-            next(error);
+        let findUser: any;
+        if (req.body.token) {
+            findUser = await this.model.findOne({
+                userName: req.body.userName,
+                token: req.body.token,
+            });
+        } else {
+            findUser = await this.model.findOne({
+                userName: req.body.userName,
+            });
         }
+
+        if (!findUser || !(await compare(req.body.passwd, findUser.passwd))) {
+            const error = new Error('Invalid user or token');
+            error.name = 'UserAuthorizationError';
+            next(error);
+            return;
+        }
+
+        const tokenPayload: iTokenPayload = {
+            id: findUser.id,
+            name: findUser.name,
+        };
+        const token = aut.createToken(tokenPayload);
+        resp.setHeader('Content-type', 'application/json');
+        resp.status(202);
+        resp.send({ token, user: findUser });
     };
 
     patchController = async (
