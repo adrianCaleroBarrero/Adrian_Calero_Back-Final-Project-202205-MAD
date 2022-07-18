@@ -69,7 +69,7 @@ export class UserController {
         const token = aut.createToken(tokenPayload);
         resp.setHeader('Content-type', 'application/json');
         resp.status(202);
-        resp.send({ token, user: findUser });
+        resp.send({ token: token, user: findUser });
     };
     patchController = async (req, resp, next) => {
         try {
