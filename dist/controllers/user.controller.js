@@ -44,42 +44,36 @@ export class UserController {
         }
     };
     loginController = async (req, resp, next) => {
-        try {
-            let findUser;
-            if (req.body.token) {
-                findUser = await this.model.findOne({
-                    userName: req.body.userName,
-                    token: req.body.token,
-                });
-            }
-            else {
-                findUser = await this.model.findOne({
-                    userName: req.body.userName,
-                });
-            }
-            if (!findUser ||
-                !(await compare(req.body.passwd, findUser.passwd))) {
-                const error = new Error('Invalid user or token');
-                error.name = 'UserAuthorizationError';
-                next(error);
-                return;
-            }
-            const tokenPayload = {
-                id: findUser.id,
-                name: findUser.name,
-            };
-            const token = aut.createToken(tokenPayload);
-            resp.setHeader('Content-type', 'application/json');
-            resp.status(202);
-            resp.send({ token, user: findUser });
+        let findUser;
+        if (req.body.token) {
+            findUser = await this.model.findOne({
+                userName: req.body.userName,
+                token: req.body.token,
+            });
         }
-        catch (error) {
+        else {
+            findUser = await this.model.findOne({
+                userName: req.body.userName,
+            });
+        }
+        if (!findUser || !(await compare(req.body.passwd, findUser.passwd))) {
+            const error = new Error('Invalid user or token');
+            error.name = 'UserAuthorizationError';
             next(error);
+            return;
         }
+        const tokenPayload = {
+            id: findUser.id,
+            name: findUser.name,
+        };
+        const token = aut.createToken(tokenPayload);
+        resp.setHeader('Content-type', 'application/json');
+        resp.status(202);
+        resp.send({ token: token, user: findUser });
     };
     patchController = async (req, resp, next) => {
         try {
-            const modifyItem = await this.model.findByIdAndUpdate(req.params.id, req.body);
+            const modifyItem = await this.model.findByIdAndUpdate(req.params.id, req.body, { new: true });
             resp.setHeader('Content-type', 'application/json');
             resp.send(JSON.stringify(modifyItem));
         }
