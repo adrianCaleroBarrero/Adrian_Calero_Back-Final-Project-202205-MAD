@@ -73,7 +73,7 @@ export class UserController {
     };
     patchController = async (req, resp, next) => {
         try {
-            const modifyItem = await this.model.findByIdAndUpdate(req.params.id, req.body);
+            const modifyItem = await this.model.findByIdAndUpdate(req.params.id, req.body, { new: true });
             resp.setHeader('Content-type', 'application/json');
             resp.send(JSON.stringify(modifyItem));
         }

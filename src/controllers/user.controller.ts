@@ -90,7 +90,7 @@ export class UserController<iUser> {
         const token = aut.createToken(tokenPayload);
         resp.setHeader('Content-type', 'application/json');
         resp.status(202);
-        resp.send({ token, user: findUser });
+        resp.send({ token: token, user: findUser });
     };
 
     patchController = async (
@@ -101,7 +101,8 @@ export class UserController<iUser> {
         try {
             const modifyItem = await this.model.findByIdAndUpdate(
                 req.params.id,
-                req.body
+                req.body,
+                { new: true }
             );
             resp.setHeader('Content-type', 'application/json');
             resp.send(JSON.stringify(modifyItem));
