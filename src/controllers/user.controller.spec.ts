@@ -145,16 +145,6 @@ describe('Given the user controller', () => {
             );
             expect(next).toHaveBeenCalled();
         });
-        test('Then should be catch a error', async () => {
-            User.findOne = jest.fn().mockRejectedValue({});
-
-            await controller.loginController(
-                req as Request,
-                resp as Response,
-                next as NextFunction
-            );
-            expect(next).toHaveBeenCalled();
-        });
     });
     describe('When use patchController', () => {
         test('Then should send a response', async () => {
