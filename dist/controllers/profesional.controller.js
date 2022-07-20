@@ -4,7 +4,6 @@ export class ProfesionalController {
         this.model = model;
     }
     getAllController = async (req, resp) => {
-        req;
         resp.setHeader('Content-type', 'application/json');
         resp.send(await this.model.find());
     };

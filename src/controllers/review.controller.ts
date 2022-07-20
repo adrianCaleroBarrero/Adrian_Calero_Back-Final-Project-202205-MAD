@@ -9,7 +9,6 @@ export class ReviewController<iReview> {
     constructor(public model: Model<iReview>) {}
 
     getAllInProfesionalController = async (req: Request, resp: Response) => {
-        req;
         resp.setHeader('Content-type', 'application/json');
 
         resp.send(

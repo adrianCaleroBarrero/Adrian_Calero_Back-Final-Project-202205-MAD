@@ -6,7 +6,6 @@ const errors = {
     TokenError: 401,
 };
 export const errorControl = (error, req, resp, next) => {
-    req;
     next;
     let status = 500;
     if (error.name)

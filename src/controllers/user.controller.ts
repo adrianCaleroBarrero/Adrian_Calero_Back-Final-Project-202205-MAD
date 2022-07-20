@@ -9,7 +9,6 @@ export class UserController<iUser> {
     constructor(public model: Model<iUser>) {}
 
     getAllController = async (req: Request, resp: Response) => {
-        req;
         resp.setHeader('Content-type', 'application/json');
         resp.send(
             JSON.stringify(

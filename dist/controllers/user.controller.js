@@ -7,7 +7,6 @@ export class UserController {
         this.model = model;
     }
     getAllController = async (req, resp) => {
-        req;
         resp.setHeader('Content-type', 'application/json');
         resp.send(JSON.stringify(await this.model.find().populate('favorites', { __v: 0 })));
     };
