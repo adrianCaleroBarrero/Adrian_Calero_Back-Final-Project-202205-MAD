@@ -23,7 +23,7 @@ describe('Given the routes of /user', () => {
         );
     });
     afterEach(async () => {
-        server.close();
+        await server.close();
     });
     describe('When method GET is used', () => {
         test('Then status should be 200', async () => {

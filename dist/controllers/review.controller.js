@@ -4,7 +4,6 @@ export class ReviewController {
         this.model = model;
     }
     getAllInProfesionalController = async (req, resp) => {
-        req;
         resp.setHeader('Content-type', 'application/json');
         resp.send(JSON.stringify(await this.model
             .find({ worker: req.params.workerId })

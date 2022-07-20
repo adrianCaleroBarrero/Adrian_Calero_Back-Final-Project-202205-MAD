@@ -14,9 +14,7 @@ export const errorControl = (
     resp: Response,
     next: NextFunction
 ) => {
-    req;
     next;
-
     let status = 500;
     if (error.name) status = errors[error.name];
     console.log(error.message);

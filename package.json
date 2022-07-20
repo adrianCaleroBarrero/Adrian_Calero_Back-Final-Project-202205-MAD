@@ -8,7 +8,7 @@
         "start": "run-p start:ts start:build",
         "start:ts": "tsc --watch",
         "start:build": "cross-env PORT=3600 nodemon ./dist/index.js",
-        "test:prod": "cross-env jest --watchAll --coverage --passWithNoTests --runInBand --ci --silent --watchAll=false",
+        "test:prod": "cross-env jest --watchAll --coverage --passWithNoTests --runInBand --ci --silent --detectOpenHandles --watchAll=false",
         "test": "cross-env jest --watchAll --coverage --passWithNoTests --runInBand",
         "prepare": "husky install"
     },

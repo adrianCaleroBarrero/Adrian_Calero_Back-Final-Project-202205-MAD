@@ -35,6 +35,10 @@ describe('Given the user controller', () => {
         next = jest.fn();
         controller = new UserController(User) as any;
     });
+
+    afterEach(async () => {
+        await mongoose.disconnect();
+    });
     describe('When use getAllController', () => {
         test('Then should send a response', async () => {
             User.find = jest.fn().mockReturnValue({

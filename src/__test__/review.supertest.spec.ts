@@ -24,7 +24,7 @@ describe('Given the routes of /review', () => {
         );
     });
     afterEach(async () => {
-        server.close();
+        await server.close();
     });
     describe('When method GET with /:workerId is used', () => {
         test('Then status should be 200', async () => {

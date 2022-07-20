@@ -21,6 +21,9 @@ describe('Given the review controller', () => {
         next = jest.fn();
         controller = new ReviewController(Review);
     });
+    afterEach(async () => {
+        await mongoose.connection.close();
+    });
     describe('When use getAllInProfesionalController', () => {
         test('Then should send a response', async () => {
             Review.find = jest.fn().mockReturnValue({
